@@ -1,0 +1,28 @@
+language -> expr+|language|EOF
+expr -> assign_expr|if_expr|while_expr
+
+
+assign_term -> VAR ASSIGN_OP value_term SEMICOLON
+if_term -> IF log_term body
+while_term -> WHILE log_term body
+
+
+log_term -> LRB VAR LOG_OP VAR RRB
+body -> LBB value_term+ RBB
+value_term -> factor (ARITH_OP factor)* SEMICOLON
+factor -> VAR|[-]?DIGIT
+
+
+VAR -> [a-zA-Z]+
+DIGIT -> [0-9]+
+ASSIGN_OP -> =
+ARITH_OP -> +|-|*|/
+LOG_OP -> ==|>|<
+IF -> if
+ELSE -> else
+WHILE -> while
+LRB -> (
+RRB -> )
+LBB -> {
+RBB -> }
+SEMICOLON -> ;

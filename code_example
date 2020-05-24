@@ -1,0 +1,15 @@
+a = 15;
+b = 15.14;
+flag = False;
+if (a > 7) {
+    a = a - 3;
+    b = b + a;
+} else {
+    a = a + 3;
+}
+while (a > 10) {
+    a = a - 1;
+}
+if (flag){
+    b = 0;
+}
