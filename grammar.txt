@@ -2,7 +2,7 @@ language -> expr+|language|EOF
 expr -> assign_expr|if_expr|while_expr
 
 
-assign_term -> VAR ASSIGN_OP value_term SEMICOLON
+assign_term -> VAR ASSIGN value_term SEMICOLON
 if_term -> IF log_term body
 while_term -> WHILE log_term body
 
@@ -10,14 +10,28 @@ while_term -> WHILE log_term body
 log_term -> LRB VAR LOG_OP VAR RRB
 body -> LBB value_term+ RBB
 value_term -> factor (ARITH_OP factor)* SEMICOLON
-factor -> VAR|[-]?DIGIT
+factor -> INT|FLOAT|INT_UN|FLOAT_UN
 
 
+INT -> [0-9]+
+FLOAT -> [0-9]+.[0-9]+
+INT_UN -> -[0-9]+
+FLOAT_UN -> -[0-9]+.[0-9]+
+BOOL -> True|False
+ARITH_OP -> PLUS|MINUS|MULT|DIV
+LOG_OP -> EQUALS|MORE|LESS
 VAR -> [a-zA-Z]+
-DIGIT -> [0-9]+
-ASSIGN_OP -> =
-ARITH_OP -> +|-|*|/
-LOG_OP -> ==|>|<
+
+
+DIGIT -> [0-9]
+DIV -> /
+MULT -> *
+MINUS -> -
+PLUS -> +
+ASSIGN -> =
+MORE -> >
+LESS -> <
+EQUALS -> ==
 IF -> if
 ELSE -> else
 WHILE -> while
