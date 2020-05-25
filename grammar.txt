@@ -2,7 +2,7 @@ language -> expr+|language|EOF
 expr -> assign_expr|if_expr|while_expr
 
 
-assign_term -> VAR ASSIGN value_term SEMICOLON
+assign_term -> VAR ASSIGN value_term
 if_term -> IF log_term body
 while_term -> WHILE log_term body
 
