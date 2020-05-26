@@ -10,7 +10,7 @@ while_term -> WHILE log_term body
 log_term -> LRB VAR LOG_OP VAR RRB
 body -> LBB value_term+ RBB
 value_term -> factor (ARITH_OP factor)* SEMICOLON
-factor -> INT|FLOAT|INT_UN|FLOAT_UN
+factor -> INT|FLOAT|INT_UN|FLOAT_UN|VAR
 
 
 INT -> [0-9]+
