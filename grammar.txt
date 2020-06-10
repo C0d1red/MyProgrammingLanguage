@@ -1,17 +1,20 @@
 language -> expr+|language|EOF
-expr -> assign_expr|if_expr|while_expr
+expr -> assign_expr|if_expr|while_expr|declare_term
 
 
-assign_term -> VAR ASSIGN value_term
+declare_term -> HT|LL VAR SEMICOLON
+assign_term -> VAR ASSIGN value_term|null_par_method|one_par_method|two_par_method
 if_term -> IF log_term body
 while_term -> WHILE log_term body
 
-
+null_par_method -> VAR DOT SIZE LRB RRB SEMICOLON
+one_par_method -> VAR DOT ADD|SIZE|GET|ADDF|CONTAIN|GETV LRB factor_term RRB SEMICOLON
+two_par_method -> VAR DOT INSERT|PUT| LRB factor_term COMMA factor_term RRB SEMICOLON
 log_term -> LRB VAR LOG_OP VAR RRB
-body -> LBB value_term+ RBB
-value_term -> factor (ARITH_OP factor)* SEMICOLON
-factor -> INT|FLOAT|INT_UN|FLOAT_UN|VAR
-
+body -> LBB (value_term|null_par_method|one_par_method|two_par_method)+ RBB
+value_term -> factor_term SEMICOLON
+factor_term -> factor (ARITH_OP factor)*
+factor -> INT|FLOAT|INT_UN|FLOAT_UN
 
 INT -> [0-9]+
 FLOAT -> [0-9]+.[0-9]+
@@ -21,6 +24,8 @@ BOOL -> True|False
 ARITH_OP -> PLUS|MINUS|MULT|DIV
 LOG_OP -> EQUALS|MORE|LESS
 VAR -> [a-zA-Z]+
+LL_OP -> ADD|SIZE|GET|INSERT|ADDF
+HT_OP -> PUT|CONTAIN|GETV
 
 
 DIGIT -> [0-9]
@@ -40,3 +45,15 @@ RRB -> )
 LBB -> {
 RBB -> }
 SEMICOLON -> ;
+DOT -> .
+COMMA -> ,
+HT -> HashTable
+LL -> LinkedList
+ADD -> add
+SIZE -> size
+PUT -> put
+INSERT -> insert
+ADDF -> addFirst
+GET -> get
+CONTAIN -> contain
+GETV -> getValue

@@ -83,7 +83,7 @@ class Parser:
         left = res.register(rule_func())
         if res.error:
             return res
-
+#
         while self.current_token.t_type in ops:
             op_token = self.current_token
             res.register(self.advance())

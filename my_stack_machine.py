@@ -1,5 +1,7 @@
 from extra.my_stack import Stack
 from extra.tokens import *
+from extra.linked_list import *
+from extra.hash_table import *
 
 # Variables dictionary
 VARIABLES = {}
@@ -60,11 +62,32 @@ class StackMachine:
                     if op in (PLUS_T, MINUS_T, MULT_T, DIV_T):
                         self.stack.push(self.arith_op(el1, el2))
 
+            elif self.current_element.t_type in LL_T:
+                # Element 2
+                el = self.stack.pop()
+
+                VARIABLES[el.value] = Linkedlist()
+
+            elif self.current_element.t_type in HT_T:
+                # Element 2
+                el = self.stack.pop()
+                VARIABLES[el.value] = HashTable()
+
+
+            elif self.current_element.t_type in (ADD_T, GET_T, SIZE_T, ADDF_T):
+                self.ll_op(self.current_element.t_type)
+
+
+            elif self.current_element.t_type in (PUT_T, CONTAIN_T, GETV_T):
+                self.ht_op(self.current_element.t_type)
+
+
             # If GO_FALSE
             elif self.current_element.t_type in GO_FALSE:
 
                 # Checking variable for value
                 value = self.stack.pop()
+
                 if value.t_type in VAR_T:
                     value = VARIABLES.get(value.value)
                     value = value.value
@@ -112,6 +135,59 @@ class StackMachine:
             result = el2.value / el1.value
 
         return Token(INT_T, result)
+
+    def ll_op(self, op):
+
+        if op in ADD_T:
+            # Element 1
+            num_el = self.stack.pop()
+
+            # Element 2
+            var_el = self.stack.pop()
+            VARIABLES[var_el.value].add(num_el)
+        elif op in GET_T:
+            # Element 1
+            num_el = self.stack.pop()
+
+            # Element 2
+            var_el = self.stack.pop()
+            self.stack.push(VARIABLES[var_el.value].get_at(num_el.value))
+        elif op in ADDF_T:
+            # Element 1
+            num_el = self.stack.pop()
+
+            # Element 2
+            var_el = self.stack.pop()
+            VARIABLES[var_el.value].add(num_el)
+        elif op in SIZE_T:
+            # Element 1
+            num_el = self.stack.pop()
+            self.stack.push(Token(INT_T, VARIABLES[num_el.value].size()))
+
+    def ht_op(self, op):
+
+        if op in PUT_T:
+            # Elements
+            num_el_value = self.stack.pop()
+            num_el_key = self.stack.pop()
+
+            # Element 2
+            var_el = self.stack.pop()
+            VARIABLES[var_el.value].put(num_el_key.value, num_el_value.value)
+        elif op in GETV_T:
+            # Element 1
+            num_el = self.stack.pop()
+
+            # Element 2
+            var_el = self.stack.pop()
+            self.stack.push(Token(INT_T, VARIABLES[var_el.value].get_value(num_el.value)))
+        elif op in CONTAIN_T:
+            # Element 1
+            num_el = self.stack.pop()
+
+            # Element 2
+            var_el = self.stack.pop()
+            self.stack.push(Token(BOOL_T, VARIABLES[var_el.value].contain(num_el.value)))
 
 
 def run(tokens):

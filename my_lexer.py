@@ -72,6 +72,12 @@ class Lexer:
                 self.advance()
             elif self.current_char == '=':
                 tokens.append(self.make_equals())
+            elif self.current_char == '.':
+                tokens.append(Token(DOT_T))
+                self.advance()
+            elif self.current_char == ',':
+                tokens.append(Token(COMMA_T))
+                self.advance()
             elif self.current_char.isalpha():
                 tokens.append(self.make_word())
             else:
@@ -99,6 +105,26 @@ class Lexer:
             return Token(BOOL_T, True)
         elif word_str == 'False':
             return Token(BOOL_T, False)
+        elif word_str == 'LinkedList':
+            return Token(LL_T)
+        elif word_str == 'HashTable':
+            return Token(HT_T)
+        elif word_str == 'insert':
+            return Token(INSERT_T)
+        elif word_str == 'add':
+            return Token(ADD_T)
+        elif word_str == 'get':
+            return Token(GET_T)
+        elif word_str == 'addFirst':
+            return Token(ADDF_T)
+        elif word_str == 'size':
+            return Token(SIZE_T)
+        elif word_str == 'put':
+            return Token(PUT_T)
+        elif word_str == 'getValue':
+            return Token(GETV_T)
+        elif word_str == 'contain':
+            return Token(CONTAIN_T)
         else:
             return Token(VAR_T, word_str)
 

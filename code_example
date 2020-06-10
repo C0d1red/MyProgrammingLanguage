@@ -1,15 +1,27 @@
 a = 15;
 b = 15.14;
-flag = False;
-if (a > 7) {
+LinkedList ll;
+ll.add(15);
+ll.add(16);
+ll.add(18);
+ll.add(145);
+c = ll.get(0);
+s = ll.size();
+flag = True;
+if (s > 3) {
     a = a - 3;
     b = b + a;
+    HashTable ht;
+    ht.put(13518, 100);
+    ht.put(984101, 22);
+    a = ht.getValue(13518);
 } else {
     a = a + 3;
 }
-while (a > 10) {
+while (ll.size() < a) {
     a = a - 1;
+    ll.add(a+1);
 }
-if (flag){
+if (flag) {
     b = 0;
 }

@@ -43,6 +43,22 @@ GO_ABSOLUTE = 'GO_ABSOLUTE'
 GO_FALSE = 'GO_FALSE'
 
 
+LL_T = 'LINKED_LIST'
+HT_T = 'HASH_TABLE'
+DOT_T = 'DOT'
+COMMA_T = 'COMMA'
+
+INSERT_T = 'INSERT'
+ADD_T = 'ADD'
+ADDF_T = 'ADD_F'
+GET_T = 'GET'
+SIZE_T = 'SIZE'
+
+PUT_T = 'PUT'
+CONTAIN_T = 'CONTAIN'
+GETV_T = 'GET_V'
+
+
 class Token:
 
     def __init__(self, t_type, value=None):
