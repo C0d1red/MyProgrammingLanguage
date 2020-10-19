@@ -1,4 +1,4 @@
-# my_programming_language
+# MyProgrammingLanguage
 
 - Lexer (Split into tokens)
 - Parser (Grammar validation)
